@@ -1,0 +1,94 @@
+
+### A simple get request to the test endpoint. No need for login
+GET {{url}}/auth/test/
+
+
+### Create a new user - this one will only get a USER role by default
+POST {{url}}/auth/register/
+
+{
+    "username": "user",
+    "password": "test123"
+}
+
+###use admin for admin
+POST {{url}}/auth/login/
+
+{
+    "username": "user",
+    "password": "test123"
+}
+
+> {% client.global.set("jwt_token", response.body.token); %}
+
+
+
+
+### GET request with a header
+GET {{url}}/trips
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+### GET request with a header
+GET {{url}}/trips/100
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+POST {{url}}/trips
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+{
+    "name": "Forest Adventure Tour",
+    "startTime": "09:00",
+    "endTime": "17:00",
+    "startPosition": "Downtown Square",
+    "price": 89.99,
+    "category": "forest",
+    "guideId": 1
+}
+
+
+###
+
+PUT  {{url}}/trips/1
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+
+{
+  "name": "Updated beach Tour",
+    "startTime": "10:00",
+    "endTime": "18:00",
+    "startPosition": "Updated City Center",
+    "price": 109.99,
+    "category": "beach",
+    "guideId": 2
+}
+###
+DELETE  {{url}}/trips/5
+Authorization: Bearer {{jwt_token}}
+
+
+
+###
+PUT {{url}}/trips/1/addGuide/3
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+POST {{url}}/trips/populate
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+GET {{url}}/trips/category/forest
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
+
+###
+GET {{url}}/trips/guides/totalprice/2
+Accept: application/json
+Authorization: Bearer {{jwt_token}}
